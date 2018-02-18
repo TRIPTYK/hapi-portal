@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const Bcrypt = require('bcrypt');
+const Boom = require('boom');
 const schema = new Schema({
     email: {
         type: String,
@@ -22,14 +23,14 @@ schema.statics.findByEmail = async function (email) {
     return await this.findOne({ email })
 }
 
-schema.statics.hashPassword = async function () {
+schema.statics.hashPassword = async function (password) {
     try{
         let salt = await Bcrypt.genSalt(parseInt(process.env.SALT_WORK_FACTOR))
-        return salt;
+        let hash = await Bcrypt.hash(password,salt)
+        return hash;
     } catch(e){
-        console.log(e)
+        Boom.badRequest('There was an error while hasing your password')
     }
 }
 
-//TODO add verifyUniqUser in preSave
 module.exports = mongoose.model('User', schema)
