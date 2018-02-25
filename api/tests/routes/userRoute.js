@@ -1,12 +1,14 @@
-const handler = require('../handlers/subscribeUser')
-const validator = require('../validations/userValidator')
+const handler = require('../handlers/userHAndler');
 //This variable brings the end of the route to our constitued route
-const localRoute = 'users/subscribe';
+const localRoute = 'tests/user';
 module.exports = {
-    method: 'POST',
+    method: 'GET',
     path: `/${process.env.API_ROUTE}/${process.env.API_POSTFIX}/${localRoute}`,
     options: {
         handler: handler,
-        validate:validator
+        // validate:validator,
+        auth:{
+            scope :'admin'
+        }
     }
-}
+};

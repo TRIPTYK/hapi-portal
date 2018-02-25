@@ -1,20 +1,24 @@
-const Glue = require('glue')
-const routes =require('hapi-routes-plugin')
-const models = require('hapi-moongoose-models-plugin')
-const environment = require('dotenv').config({path:'secrets.env'})
+const Glue = require('glue');
+const routes = require('hapi-routes-plugin');
+const models = require('hapi-moongoose-models-plugin');
+const hapiDevErrors = require('hapi-dev-errors');
+const authStrategy = require(`${process.cwd()}/plugins/auth-strategy`);
+require('dotenv').config({ path: 'secrets.env' });
 const manifest = {
     server: {
         port: process.env.PORT || 8001
     },
     register: {
         plugins: [
-            {plugin:models,options:{database:process.env.DATABASE}},
+            { plugin: hapiDevErrors, options: { showErrors: process.env.NODE_ENV !== 'production', useYouch: true } },
+            authStrategy,
+            { plugin: models, options: { database: process.env.DATABASE } },
             routes
         ]
     }
 };
 
-const startServer = async  () => {
+const startServer = async () => {
     try {
         const server = await Glue.compose(manifest);
         await server.start();

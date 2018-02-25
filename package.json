@@ -23,14 +23,19 @@
   },
   "homepage": "https://github.com/gilles-bertrand/hapi-portal#readme",
   "dependencies": {
+    "@now-ims/hapi-now-auth": "^1.0.1",
     "bcrypt": "^1.0.3",
     "boom": "^7.1.1",
     "dotenv": "^5.0.0",
+    "es6-promisify": "^6.0.0",
     "glue": "^5.0.0",
+    "hapi-dev-errors": "^2.1.0",
     "hapi-moongoose-models-plugin": "^0.0.3",
     "hapi-routes-plugin": "^0.0.2",
     "inert": "^5.1.0",
     "joi": "^13.1.2",
+    "jsonwebtoken": "^8.1.1",
+    "make-promises-safe": "^1.1.0",
     "mongoose": "^5.0.6"
   }
 }
