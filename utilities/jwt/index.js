@@ -13,7 +13,7 @@ exports.generateToken = async user => {
     process.env.SECRET_KEY,
     {
         algorithm: 'HS512',
-        expiresIn: '300s'
+        expiresIn: '3000s'
     }
     );
 };

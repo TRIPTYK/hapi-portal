@@ -17,8 +17,6 @@ const schema = new Schema({
         { type: Schema.Types.ObjectId, ref: 'authScope'}
     ]
 });
-
-
 /** 
  * Model Methods (Statics)
 */
@@ -46,7 +44,5 @@ schema.methods.comparePassword = async function(tryPassword){
     }catch(err){
         throw(err);
     }
-
-   
 }
 module.exports = mongoose.model('User', schema)

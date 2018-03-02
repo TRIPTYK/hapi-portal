@@ -1,5 +1,5 @@
-const handler = require('../handlers/subscribeUser')
-const validator = require('../validations/userValidator')
+const handler = require('../handlers/subscribeUser');
+const validator = require('../validations/userValidator');
 //This variable brings the end of the route to our constitued route
 const localRoute = 'users/subscribe';
 module.exports = {

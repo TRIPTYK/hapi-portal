@@ -4,6 +4,7 @@ const models = require('hapi-moongoose-models-plugin');
 const hapiDevErrors = require('hapi-dev-errors');
 const authStrategy = require(`${process.cwd()}/plugins/auth-strategy`);
 require('dotenv').config({ path: 'secrets.env' });
+require('make-promises-safe');
 const manifest = {
     server: {
         port: process.env.PORT || 8001

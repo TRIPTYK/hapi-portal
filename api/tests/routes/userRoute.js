@@ -8,7 +8,7 @@ module.exports = {
         handler: handler,
         // validate:validator,
         auth:{
-            scope :'admin'
+            scope :'admin',
         }
     }
 };
