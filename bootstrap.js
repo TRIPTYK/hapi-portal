@@ -11,8 +11,8 @@ const manifest = {
     register: {
         plugins: [
             { plugin: hapiDevErrors, options: { showErrors: process.env.NODE_ENV !== 'production', useYouch: true } },
-            authStrategy,
             { plugin: models, options: { database: process.env.DATABASE } },
+            authStrategy,
             routes
         ]
     }

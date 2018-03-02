@@ -1,17 +1,26 @@
-const HapiNowAuth = require('@now-ims/hapi-now-auth');
+const  Stream = require('buffer');
+const hapiAuthJWT2 = require('hapi-auth-jwt2');
+const userModel = require('../../api/users/models/user');
+const validate = async (decoded,request) =>{
+    let user = await userModel.findByEmail(decoded.sub.email);
+    if(user){
+        return {
+            isValid: true,
+            credentials : decoded.sub
+        };
+    } else{
+        return {isValid:false};
+    }
+}
 exports.register = async (server, options) => {
-    await server.register(HapiNowAuth);
-    server.auth.strategy('jwt-strategy', 'hapi-now-auth', {
-        verifyJWT: true,
-        keychain: ['secret'],
-        validate: async (request, token, h) => {
-            const credentials = token.decodedJWT;
-            console.log(credentials);
-        }
+    this.model = options.model;
+    await server.register(hapiAuthJWT2);
+    server.auth.strategy('jwt', 'jwt', {
+        key:Stream.Buffer(process.env.SECRET_KEY),
+        validate:validate,
+        verifyOptions: { algorithms: [ 'HS512' ] } 
     });
-    server.auth.default('jwt-strategy');
+    server.auth.default('jwt');
 };
 
 exports.name = 'auth-strategy';
-//on peut tester avec 
-//secret 'secret' et JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWQiOjEsImFkbWluIjp0cnVlfQ.RiBQaXCXCwSPwx2B3rsm_Um193HaH55HkyH1uX24UM4

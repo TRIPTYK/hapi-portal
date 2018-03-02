@@ -383,6 +383,14 @@ graceful-fs@^4.1.2:
   version "4.1.11"
   resolved "https://registry.yarnpkg.com/graceful-fs/-/graceful-fs-4.1.11.tgz#0e8bdfe4d1ddb8854d64e04ea7c00e2a026e5658"
 
+hapi-auth-jwt2@^8.0.0:
+  version "8.0.0"
+  resolved "https://registry.yarnpkg.com/hapi-auth-jwt2/-/hapi-auth-jwt2-8.0.0.tgz#caf2e0e5e6a529ff961af7272a018e570c954436"
+  dependencies:
+    boom "^7.1.1"
+    cookie "^0.3.1"
+    jsonwebtoken "^8.1.0"
+
 hapi-dev-errors@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/hapi-dev-errors/-/hapi-dev-errors-2.1.0.tgz#181ed8a0dbbbac7f4e20ef2613ebccff87d6734c"

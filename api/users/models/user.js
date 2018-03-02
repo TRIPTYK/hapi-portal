@@ -12,29 +12,29 @@ const schema = new Schema({
     password: {
         type: String,
         required: true
-    }
-})
+    },
+    scopes:[
+        { type: Schema.Types.ObjectId, ref: 'authScope'}
+    ]
+});
 
 
 /** 
  * Model Methods (Statics)
 */
 schema.statics.findByEmail = async function (email) {
-    return await this.findOne({ email })
-}
-
+    return await this.findOne({ email }).populate('scopes');
+};
 
 schema.methods.hashPassword = async function (password) {
-    console.log(password)
     try{
-        let salt = await Bcrypt.genSalt(parseInt(process.env.SALT_WORK_FACTOR))
-        let hash = await Bcrypt.hash(password,salt)
-        console.log(this)
+        let salt = await Bcrypt.genSalt(parseInt(process.env.SALT_WORK_FACTOR));
+        let hash = await Bcrypt.hash(password,salt);
         this.password=hash;
     } catch(e){
-        Boom.badRequest('There was an error while hasing your password')
+        Boom.badRequest('There was an error while hasing your password');
     }
-}
+};
 
 schema.methods.comparePassword = async function(tryPassword){
     try{
@@ -44,7 +44,7 @@ schema.methods.comparePassword = async function(tryPassword){
         }
         return Boom.badRequest('The entered password is not correct');
     }catch(err){
-        throw(err)
+        throw(err);
     }
 
    

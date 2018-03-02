@@ -7,13 +7,13 @@ exports.generateToken = async user => {
         sub: {
             _id: user.id,
             email: user.email,
-            scope: ['admin']
+            scope:user.scopes.map(scope=>scope.name)
         }
     },
     process.env.SECRET_KEY,
     {
         algorithm: 'HS512',
-        expiresIn: '30s'
+        expiresIn: '300s'
     }
     );
 };

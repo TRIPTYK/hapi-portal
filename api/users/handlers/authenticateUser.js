@@ -11,8 +11,7 @@ module.exports = async (request, h) => {
         if (!isValidPassword) {
             return Boom.notFound('Password is not valid');
         } else {
-            
-            return token.generateToken(user);
+            return h.response( await token.generateToken(user)).code(201);
         }
     }
 
