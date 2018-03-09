@@ -11,7 +11,17 @@ module.exports = async (request, h) => {
         if (!isValidPassword) {
             return Boom.notFound('Password is not valid');
         } else {
-            return h.response( await token.generateToken(user)).code(201);
+            let options = {
+                sub: {
+                    _id: user.id,
+                    email: user.email,
+                    scope: user.scopes.map(scope => scope.name)
+                },
+                secret:process.env.SECRET_KEY,
+                algorithm:'HS512',
+                expiration:'300s'
+            }
+            return h.response(await token.generateToken(options)).code(201);
         }
     }
 

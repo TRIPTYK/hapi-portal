@@ -5,22 +5,26 @@ const verify = promisify(jwt.verify);
 
 /**
  * This function generates a token based on the user find in the database and the returns it after coding the token
- * @param {User} user - th user to add in the JWT signed token
+ * @param {Object} options - the options contains 
+ *  - {Object} sub to sign 
+ *  - {String} algorithm  to sign
+ *  - {String} secret to sign
+ *  - {String} expiration time like '3d','5s',...
  * @returns {string} JWT token that will be used by the auhtorization mechanism
  */
 //TODO intreoduct options managament for a better integrations, change function signature to pass the sub instaed of the user bring tyhis to be more generic
-exports.generateToken = async user => {
+exports.generateToken = async options => {
+    let sub = options.sub || {_id:Math.random()*10000};
+    let algorithm = options.algorithm || 'HS256';
+    let expiration = options.expiration || '30s';
+    let secret = options.secret ||'secret_triptyk_base_2018';
     return await sign({
-        sub: {
-            _id: user.id,
-            email: user.email,
-            scope:user.scopes.map(scope=>scope.name)
-        }
+        sub: sub
     },
-    process.env.SECRET_KEY,
+    secret,
     {
-        algorithm: 'HS512',
-        expiresIn: '300s'
+        algorithm: algorithm,
+        expiresIn: expiration
     }
     );
 };
