@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const jsonapi = require("../../../plugins/mongoose-jsonapi")
 const Schema = mongoose.Schema;
 const schema = new Schema({
     name: {
@@ -8,7 +9,7 @@ const schema = new Schema({
         required: true
     }
 });
-
+schema.plugin(jsonapi,{'name':'authScope'})
 
 /** 
  * Model Methods (Statics)

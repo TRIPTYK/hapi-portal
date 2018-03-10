@@ -34,6 +34,7 @@
     "hapi-routes-plugin": "^0.0.2",
     "inert": "^5.1.0",
     "joi": "^13.1.2",
+    "jsonapi-serializer": "^3.5.6",
     "jsonwebtoken": "^8.1.1",
     "make-promises-safe": "^1.1.0",
     "mongoose": "^5.0.6"
