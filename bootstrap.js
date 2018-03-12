@@ -14,7 +14,7 @@ const manifest = {
             { plugin: hapiDevErrors, options: { showErrors: process.env.NODE_ENV !== 'production', useYouch: true } },
             { plugin: models, options: { database: process.env.DATABASE } },
             authStrategy,
-            routes
+            { plugin: routes, options: { routes: './api/**//routes/*.js' } },
         ]
     }
 };
